@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from ffmutual.dev-website.com/users/forgot_password/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Nov 2023 09:26:06 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fortress Mutual Fund - Forgot Password</title>
+
+<link href="../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="../../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+<link href="../../vendors/nprogress/nprogress.css" rel="stylesheet">
+
+<link href="../../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+
+<link href="../../vendors/animate.css/animate.min.css" rel="stylesheet">
+
+<link href="../../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+
+
+
+<link href="../../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="../../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+<link href="../../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+<link href="../../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+<link href="../../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+
+<link href="../../buildcss/css/custom.min.css" rel="stylesheet">
+<link href="../../buildcss/css/style.css" rel="stylesheet">
+<link href="../../css/jquery-ui.css" rel="stylesheet">
+
+<script src="../../../ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
+<script src="../../../ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<style>
+                .display{
+                    display : block;
+                }
+                .display-hide{
+                    display : none;
+                }
+            </style>
+</head>
+<div class="mobile-logo" style="border: 0;">
+<a href="../../index.html" class><img src="../../img/fortresslogo.png" alt="logo" /></a>
+</div>
+<style>
+#pswd_info {
+    background: #fefefe none repeat scroll 0 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    bottom: 30%;
+    box-shadow: 0 1px 3px #ccc;
+    font-size: 0.875em;
+    padding: 15px;
+    position: absolute;
+    right: 0%;
+    width: 250px;
+    float: left;
+    text-align: left !important;
+  	margin-right: -50%;
+  	top: 15%;
+  	height: 200px;
+}
+.ErrorMsg{
+	color: #EA4336;
+}
+.SuccessMsg{
+	color: #34A853;
+}
+@media only screen and (min-width: 1920px){
+	#pswd_info {
+    right: 2%;
+    width: 250px;
+}
+}
+#pswd_info h4 {
+    margin:0 0 10px 0;
+    padding:0;
+    font-weight:normal;
+}
+
+#pswd_info::before {
+    /*content: "\25B2";*/
+    position:absolute;
+    top:-12px;
+    left:45%;
+    font-size:14px;
+    line-height:14px;
+    color:#ddd;
+    text-shadow:none;
+    display:block;
+}
+
+.invalid {
+    /* background:url(../images/invalid.png) no-repeat 0 50%;*/
+    padding-left:22px;
+    line-height:24px;
+    color:#ec3f41;
+}
+.valid {
+   /* background:url(../images/valid.png) no-repeat 0 50%;*/
+    padding-left:22px;
+    line-height:24px;
+    color:#3a7d34;
+}
+
+#pswd_info {
+    display:none;
+}
+.mobile-logo{
+	display: none !important;
+}
+</style>
+<script type="text/javascript">
+	function FnCheckForm(){
+		var ArisError = [];
+		var ArErrorMsg = [];
+		var ArFieldId = [] ;
+		var UserEmail = $.trim($('#UserEmailId').val());				
+		//alert($.trim($('#UserEmailId').val()));
+		if(UserEmail!=''){			
+			if(FnIsEmail(UserEmail)){
+				ArisError.push(false);
+				ArErrorMsg.push('');
+				ArFieldId.push('UserEmailId');
+			}else{				
+				ArisError.push(true);
+				ArErrorMsg.push('Invalid email. Try Again!');
+				ArFieldId.push('UserEmailId');
+			}			
+		}
+		else{			
+			ArisError.push(true);
+			ArErrorMsg.push('Email is required. Try Again!');
+			ArFieldId.push('UserEmail');
+		}	
+			
+		var IsErrorFlag = false;
+		// check for any error		
+		for(var i = 0; i < ArisError.length; i++) {
+			
+	        if(ArisError[i] == true){
+				if($.trim(ArErrorMsg[i])!=''){
+					$('#errorMsg').removeClass('display-hide');
+					$('#errorMsg').html(ArErrorMsg[i]).css('color','#a00');;
+						
+				}
+				if(!IsErrorFlag){//if atleast one error occour setting flag true;
+					var FirstErrorFieldNo = i;
+					IsErrorFlag = true;
+					break;
+				}
+				 
+			}
+	    }
+		
+		if(IsErrorFlag){
+			$('#'+ArFieldId[FirstErrorFieldNo]).focus();
+			return false;
+		}else{
+			return true;
+		}
+	    
+	}
+	
+	function forgot_password(){
+
+		var UserEmail = $.trim($('#UserEmail').val());
+            if(UserEmail){
+				$.ajax({
+					type:'post',
+					url:'/users/forgot_password',
+                    data:{email:UserEmail},
+                    success:function(response){
+                        alertify.alert(response);
+                        $('#UserEmail').val('');
+                    },
+                    beforeSend:function(){
+                        alertify.success('Please wait......');
+                    }
+                });
+            }                   
+  
+        return false ;
+    }
+    
+</script>
+<body class="login">
+<div>
+<img src="../../img/fortresslogo.png" class="logo" alt="logo" />
+<div class="header-title">
+<h1>Fortress Accounts Online</h1>
+</div>
+<div class="login_wrapper">
+<div class="animate form login_form">
+<section class="login_content">
+<form action="https://ffmutual.dev-website.com/users/forgot_password" class="login-form" id="UserForgotPasswordForm" method="post" accept-charset="utf-8"><div style="display:none;"><input type="hidden" name="_method" value="POST" /></div> <h1><strong>Reset password</strong></h1>
+<div class="display-hide" id="errorMsg">
+<button class="close" data-close="alert"></button>
+<span style="color: #fff"></span>
+</div>
+<div class></div>
+<div>
+
+<input name="data[User][email_id]" class="form-control placeholder-no-fix" placeholder="User Email" autocomplete="off" maxlength="150" type="email" id="UserEmailId" /> </div>
+<div>
+
+<button type="submit" class="btn btn-default btn-primary submit" onclick="return FnCheckForm();">Submit<i class="m-icon-swapright m-icon-white"> </i></button>
+<a class="reset_pass" href="../../index.html">Login</a>
+</div>
+<div class="clearfix"></div>
+<div class="separator">
+<div class="clearfix"></div>
+<br/>
+<div>
+
+
+<p></p>
+<p>&copy; 2017 Fortress Fund Managers Ltd. All Rights Reserved.</p>
+</div>
+</div>
+</form> </section>
+</div>
+<style>
+				.error{
+					color: #D12124;
+					margin-bottom: 2%;
+				}
+			</style>
+<div id="register" class="animate form registration_form">
+<section class="login_content">
+<div id="resgisterMsg"></div>
+<form method="post" name="RegistrationForm" id="RegistrationForm" class="login-form">
+<h1>Create Account</h1>
+<div>
+<input name="data[name]" class="form-control placeholder-no-fix" placeholder="Name" autocomplete="off" type="text" id="name" /> </div>
+<div>
+<input name="data[email]" class="form-control placeholder-no-fix" placeholder="Email" autocomplete="off" type="email" id="email" /> </div>
+<div>
+<input name="data[password]" class="form-control placeholder-no-fix" placeholder="Password" autocomplete="off" onkeyup="passwordCheck(this.value);" type="password" id="password" /> </div>
+<div>
+<input name="data[client_id]" class="form-control placeholder-no-fix" placeholder="Client ID" autocomplete="off" type="text" id="client_id" /> </div>
+<div>
+<input name="data[nationality_id]" class="form-control placeholder-no-fix" placeholder="National ID Number" autocomplete="off" type="text" id="nationality_id" /> </div>
+<div>
+<div class="col-md-12">
+<div id="recaptcha" class="g-recaptcha" data-sitekey="6LfHtR0UAAAAALqwBe6bdYywHXUv041R1lycJLk9" data-size="invisible">
+</div>
+</div>
+<input class="btn btn-default submit" type="submit" value="Register" />
+
+</div>
+<div class="clearfix"></div>
+<div class="separator">
+<p class="change_link">Already a member ?
+<a href="#signin" class="to_register"> Log in </a>
+</p>
+<div class="clearfix"></div>
+<br/>
+<div>
+
+
+<p></p>
+<p>� 2017 Fortress Fund Managers Ltd. All Rights Reserved.</p>
+</div>
+</div>
+<div id="pswd_info">
+<i class="fa fa-angle-left" style="float: left; font-size: 26px; left: -11%; position: relative; top: 40%;"></i>
+<h4>Password must meet the following requirements:</h4>
+<ul>
+<li id="letter" class="invalid">At least <strong>one letter</strong></li>
+<li id="capital" class="invalid">At least <strong>one capital letter</strong></li>
+<li id="number" class="invalid">At least <strong>one number</strong></li>
+<li id="length" class="invalid">Be at least <strong>8 characters</strong></li>
+</ul>
+</div>
+</form>
+</section>
+</div>
+</div>
+</div>
+</body>
+<script type="text/javascript">
+$('#RegistrationForm').validate({
+	rules: {
+		"data[name]": {
+			required:true            
+		},
+		"data[email]": {
+			required:true,
+			email:true            
+		},
+		"data[password]": {
+			required:true           
+		},
+		"data[client_id]": {
+			required:true          
+		},
+		"data[nationality_id]": {
+			required:true         
+		},
+		    
+    },    
+    messages: {
+		"data[name]": {
+			required:"Please enter your name"
+		},
+		"data[email]": {
+			required:"Please enter your email",
+			email:"Please enter a valid email address."
+		},
+		"data[password]": {
+			required:"Please enter a password"
+		},
+		"data[client_id]": {
+			required:"Please enter your Client ID"
+		},
+		"data[nationality_id]": {
+			required: "Please enter your the National ID Number"
+		},	   
+		        
+    },
+   	submitHandler: function() {	 
+		grecaptcha.execute();   // invisible recaptcha called
+		if (grecaptcha.getResponse() != ""){ 
+			var form = $('#RegistrationForm').serialize();
+			//return false;
+			$.ajax({
+				type: 'POST',
+				url:  '/users/register',
+				data: form,	                  
+				success: function(response){
+					var obj = $.parseJSON(response);
+					console.log(obj);
+					if(obj.status){
+						document.getElementById("resgisterMsg").innerHTML = "<span class='SuccessMsg'>Thank You! You have been registered successfully and we have sent you a confirmation email.</span>" ;
+						document.getElementById("RegistrationForm").reset();
+
+					} else {
+						document.getElementById("resgisterMsg").innerHTML = "<span class='ErrorMsg'>"+obj.msg+"</span>";
+					}
+				}
+			}); //end ajax fire
+		}
+    } 
+}); //end validation
+		
+function passwordCheck(value=''){
+	if(value != ''){
+	    $('#pswd_info').show();
+		var pswd = value;
+		//validate the length
+		if ( pswd.length < 8 ) {
+			$('#length').removeClass('valid').addClass('invalid');
+
+		} else {
+			$('#length').removeClass('invalid').addClass('valid');
+		}
+		//validate letter
+		if ( pswd.match(/[A-z]/) ) {
+			$('#letter').removeClass('invalid').addClass('valid');
+		} else {
+			$('#letter').removeClass('valid').addClass('invalid');
+		}
+		//validate capital letter
+		if ( pswd.match(/[A-Z]/) ) {
+			$('#capital').removeClass('invalid').addClass('valid');
+		} else {
+			$('#capital').removeClass('valid').addClass('invalid');
+		}
+		//validate number
+		if ( pswd.match(/\d/) ) {
+			$('#number').removeClass('invalid').addClass('valid');
+		} else {
+			$('#number').removeClass('valid').addClass('invalid');
+		}
+		
+	} else{
+		$('#pswd_info').hide();
+	}
+}
+	
+$(document).ready(function(){
+	$('#RegistrationForm').on("focus","#password",function() {
+			$('#pswd_info').fadeIn(500);
+	}).on("blur","#password",function() {
+			$('#pswd_info').fadeOut(500);
+	});
+});
+</script>
+
+<script src="../../../cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
+<script src="../../../cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="../../alertify/themes/alertify.core.css" id="toggleCSS" />
+<link rel="stylesheet" type="text/css" href="../../alertify/themes/alertify.default.css" id="toggleCSS" />
+<script type="text/javascript" src="../../alertify/lib/alertify.min.js"></script>
+
+<script type="text/javascript" src="../../../www.google.com/recaptcha/api.js"></script>
+
+
+<script src="../../../maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="../../vendors/skycons/skycons.js"></script>
+
+<script src="../../js/moment/moment.min.js"></script>
+<script src="../../../cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.0.5/daterangepicker.min.js"></script>
+
+<script src="../../../cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="../../../cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
+<script src="../../../cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+<script src="../../../cdn.datatables.net/buttons/1.6.2/js/buttons.bootstrap.min.js"></script>
+<script src="../../../cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>
+<script src="../../../cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+<script src="../../../cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+<script src="../../../cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
+<script src="../../../cdn.datatables.net/keytable/2.5.2/js/dataTables.keyTable.min.js"></script>
+<script src="../../../cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"></script>
+<script src="../../../cdn.datatables.net/responsive/2.2.5/js/responsive.bootstrap.min.js"></script>
+<script src="../../../cdn.datatables.net/scroller/2.0.2/js/dataTables.scroller.min.js"></script>
+<script src="../../vendors/jszip/dist/jszip.min.js"></script>
+<script src="../../../cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="../../vendors/pdfmake/build/vfs_fonts.js"></script>
+
+
+
+
+<!-- Mirrored from ffmutual.dev-website.com/users/forgot_password/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Nov 2023 09:26:07 GMT -->
+</html>
