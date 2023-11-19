@@ -25,14 +25,21 @@
 </div>
 </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<!-- <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<!-- <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> -->
 <script type="text/javascript">
 	    var currentdate = new Date();
 	    jQuery.noConflict();
 		jQuery(document).ready(function($) {
             $.noConflict();
-            
+
+			$('#datatable-keytable1').DataTable( {
+		    	responsive: true,
+		        'ordering': false,
+		        'bPaginate' : false
+		    } );
+            /*
             $(function () {
                 $(".datepicker").datepicker({ changeYear: true, changeMonth: true });
             });
@@ -202,6 +209,8 @@
                         }
                     }]
 		    } );
+
+			*/
 		    
 		    /*$(document).ready(function() { 
 		        $('#example').dataTable( { 
@@ -220,23 +229,19 @@
 		        } ); 
 		    } );*/
 		    
-		    $('#table').DataTable( {
-		    	responsive: true,
-		        'bPaginate' : false,
-		        'ordering': false,
-				dom: 'Bfrtip',
-				buttons: [
-				'print'
-				]
-		    } );
+		    // $('#table').DataTable( {
+		    // 	responsive: true,
+		    //     'bPaginate' : false,
+		    //     'ordering': false,
+			// 	dom: 'Bfrtip',
+			// 	buttons: [
+			// 	'print'
+			// 	]
+		    // } );
 		    
-		    $('#datatable-keytable1').DataTable( {
-		    	responsive: true,
-		        'ordering': false,
-		        'bPaginate' : false
-		    } );
+		  
 		} );
-</script>  -->
+</script> 
 </div>
 </div>
 </body>
@@ -281,13 +286,16 @@
 	}
     	
     	
-    function deleteClient(id){
+    function deleteClient(id){ 
     	alertify.confirm("Are you sure you want to delete the client? Then click 'OK' else 'CANCEL'.", function (e) {
 		    if (e) {
 		        /*var id = this.getAttribute('rel');*/
 	    		$.ajax({
 					type: 'POST',
-					url:  '/users/delete/'+id,                 
+					url:"/admin/clients/delete/" + id,   
+					data: {
+					"_token": "{{ csrf_token() }}", 
+					},    
 					success: function(response){
 						if(response == 'Success'){
 							alertify.alert("Client has been successfully deleted.");
@@ -302,8 +310,7 @@
 		    }
 		});
     		
-    	}
-    
+    	} 
     </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
@@ -338,7 +345,13 @@
 <script src="{{asset('/assets')}}/vendors/jszip/dist/jszip.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
 <script src="{{asset('/assets')}}/vendors/pdfmake/build/vfs_fonts.js"></script>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-
+<script>
+			$('.btn-close').click(function(){
+				$(".alert").alert('close'); 
+			});
+	</script>
 
 </html>

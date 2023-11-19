@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('acc_clients', function (Blueprint $table) {
-            $table->renameColumn('id', 'acc_client_id'); 
+            $table->id(); 
             $table->string('account_id');
             $table->string('client_id'); 
             $table->string('status');

@@ -32,7 +32,7 @@
 	<div> 
 
 	<p></p>
-	<p>© 2017 Fortress Fund Managers Ltd. All Rights Reserved.</p>
+	<p>&copy; 2023 Fortress Fund Managers Ltd. All Rights Reserved.</p>
 	</div>
 	</div>
 </form>
@@ -105,7 +105,7 @@
 
 
 	<p></p>
-	<p>© 2017 Fortress Fund Managers Ltd. All Rights Reserved.</p>
+	<p>&copy; 2023 Fortress Fund Managers Ltd. All Rights Reserved.</p>
 	</div>
 	</div>
 	<div id="pswd_info">

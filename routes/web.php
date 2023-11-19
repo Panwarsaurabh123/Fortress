@@ -38,6 +38,12 @@ Route::group(['middleware' => ['adminmiddleware']], function() {
     Route::get('/admin/users/dashboard', [AdminController::class, 'index'])->name('user_dashboard');
     Route::any('/logout', [AdminController::class, 'logout'])->name('logout');
     Route::get('/admin/clients/account', [AdminController::class, 'admin_index'])->name('admin_dashboard');
+    Route::post('/admin/clients/delete/{id}', [AdminController::class, 'client_delete'])->name('client_delete');
+    Route::get('/admin/client/reset_pass/{id}', [AdminController::class, 'client_reset_pass'])->name('client_reset_pass');
+    Route::post('/admin/client/resetPasswordSubmit', [AdminController::class, 'resetPasswordSubmit'])->name('resetPasswordSubmit');
+
     Route::get('/admin/import/', [AdminController::class, 'import_index'])->name('import'); 
+    
+    Route::post('/admin/client/acc_client', [AdminController::class, 'acc_client'])->name('acc_client');
 
 });

@@ -33,42 +33,34 @@
 <div class="row">
 <div class="col-md-12 col-sm-12 col-xs-12">
 <div class="x_panel">
-<span style="color: red;">
-	@if(session('success_msg'))  
-	<div class="alert alert-success alert-dismissible"> 
-		{{session('success_msg')}}
-		<button type="button" class="btn-close close" data-bs-dismiss="alert"><span aria-hidden="true">&times;</span>
-		</button>
-	</div>
-	@elseif(session('error_msg'))
-	<div class="alert alert-danger alert-dismissible"> 
-		{{session('error_msg')}}
-		<button type="button" class="btn-close close" data-bs-dismiss="alert"><span aria-hidden="true">&times;</span>
-		</button>
-	</div>
-	@endif 
-</span>
 <div class="x_title">
-<h2>Upload Data</h2>
+<h2>Reset Password</h2>
 
 <div class="clearfix"></div>
 </div>  
-        <form method="post" name="UserForgotPasswordForm" id="UserForgotPasswordForm" enctype="multipart/form-data" class="login-form" action="{{route('acc_client')}}">   
-				<input type="hidden" name="_token" value="{{ csrf_token() }}">   
+        <form method="post" name="UserForgotPasswordForm" id="UserForgotPasswordForm" class="login-form" action="{{route('resetPasswordSubmit')}}">   
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">  
+			 
+                <input type="hidden" name="client_id" value="{{ $id }}">   
                  
 				<div class="col-md-6"> 
-                    <label for="acc_client">Upload Account Client file (.CSV)</label>
-				    <input name="acc_client" class="form-control placeholder-no-fix" placeholder="Upload file" autocomplete="off" maxlength="150" type="file" id="acc_client" required /> 
-                    <span style="color: red; float: left;">@if($errors->has('acc_client'))
-                        {{ $errors->first('acc_client');}} 
+				    <input name="password" class="form-control placeholder-no-fix" placeholder="Password" autocomplete="off" maxlength="150" type="password" id="password" required /> 
+                    <span style="color: red; float: left;">@if($errors->has('password'))
+                        {{ $errors->first('password');}} 
                     @endif</span>
                 </div>
                 <div class="clearfix"></div>
-                
+                <br>
+                <div  class="col-md-6"> 
+				    <input name="password_confirmation" class="form-control placeholder-no-fix" placeholder="Confirm Password" autocomplete="off" maxlength="150" type="password" id="password_confirmation" required /> 
+                    <span style="color: red; float: left;">@if($errors->has('password_confirmation'))
+                        {{ $errors->first('password_confirmation');}} 
+                    @endif</span>
+                </div>
                 <div class="clearfix"></div>
               <br>
 				<div  class="col-md-12"> 
-					<button type="submit" class="btn btn-default btn-primary submit">Upload<i class="m-icon-swapright m-icon-white"> </i></button>
+					<button type="submit" class="btn btn-default btn-primary submit">Submit<i class="m-icon-swapright m-icon-white"> </i></button>
 			  
 				</div> 
  
