@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 18, 2023 at 01:23 PM
+-- Generation Time: Nov 19, 2023 at 01:17 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -20,6 +20,33 @@ SET time_zone = "+00:00";
 --
 -- Database: `fortress_fund`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `acc_clients`
+--
+
+CREATE TABLE `acc_clients` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `account_id` varchar(255) NOT NULL,
+  `client_id` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `can_sign` int(11) NOT NULL,
+  `get_statement` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `acc_clients`
+--
+
+INSERT INTO `acc_clients` (`id`, `account_id`, `client_id`, `status`, `can_sign`, `get_statement`, `created_at`, `updated_at`) VALUES
+(1, '99', '80', 'P', 1, '0', '2023-11-19 06:27:15', '2023-11-19 06:27:15'),
+(2, '100', '99', 'P', 1, '0', '2023-11-19 06:27:15', '2023-11-19 06:27:15'),
+(3, '101', '90', 'P', 1, '0', '2023-11-19 06:27:15', '2023-11-19 06:27:15'),
+(4, '102', '100', 'P', 1, '0', '2023-11-19 06:42:31', '2023-11-19 06:42:31');
 
 -- --------------------------------------------------------
 
@@ -57,7 +84,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2019_12_14_000001_create_personal_access_tokens_table', 1);
+(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(5, '2023_11_18_120912_create_acc_clients_table', 2);
 
 -- --------------------------------------------------------
 
@@ -117,14 +145,18 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `client_id`, `nationality_id`, `email_verify`, `user_status`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Deepak Thani', 'deepak@creativejunction.com', NULL, '9600a4adac1c90abc3b8fbe5eee17242', 1, '2', '1211', 0, 1, NULL, NULL, NULL),
-(2, 'mohan', 'mohan@gmail.com', NULL, '25d55ad283aa400af464c76d713c07ad', 2, '12', '121', 0, 1, '1923011867', '2023-11-18 00:20:05', '2023-11-18 06:03:28'),
-(3, 'shahrukh', 'srk@gmail.com', NULL, '827ccb0eea8a706c4c34a16891f84e7b', 2, '123', '1234', 0, 1, '1087700725', '2023-11-18 00:27:19', '2023-11-18 00:27:19'),
-(4, 'ss', 'sss@gmail.com', NULL, 'e10adc3949ba59abbe56e057f20f883e', 2, '1234', '212', 1, 1, '129736037', '2023-11-18 00:30:57', '2023-11-18 00:30:57'),
-(5, 'saurabh', 'saurabh@gmail.com', NULL, 'e10adc3949ba59abbe56e057f20f883e', 2, '123', '12345', 0, 1, '1522922256', '2023-11-18 04:04:34', '2023-11-18 04:04:34');
+(2, 'mohan', 'mohan@gmail.com', NULL, 'e10adc3949ba59abbe56e057f20f883e', 2, '12', '121', 0, 1, '1923011867', '2023-11-18 00:20:05', '2023-11-19 02:43:20'),
+(3, 'shahrukh', 'srk@gmail.com', NULL, '827ccb0eea8a706c4c34a16891f84e7b', 2, '123', '1234', 0, 1, '1087700725', '2023-11-18 00:27:19', '2023-11-18 00:27:19');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `acc_clients`
+--
+ALTER TABLE `acc_clients`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -165,6 +197,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `acc_clients`
+--
+ALTER TABLE `acc_clients`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -174,7 +212,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
